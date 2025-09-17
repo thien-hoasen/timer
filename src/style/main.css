@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --*: initial;
+  --spacing: 1px;
+}
+
+@import "./color.css";
+@import "./shadow.css";
+@import "./typography.css";
+@import "./radius.css";
+
+@theme {
+  /* Allow 2 columns */
+  --breakpoint-sm: 640px;
+  /* Allow 3 columns */
+  --breakpoint-md: 960px;
+}
+
+@import "./global.css";
