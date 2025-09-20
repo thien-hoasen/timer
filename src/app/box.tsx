@@ -7,7 +7,7 @@ import '../style/main.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Theme accentColor="violet" grayColor="mauve">
+    <Theme>
       <LayoutBox>
         Timer
       </LayoutBox>
