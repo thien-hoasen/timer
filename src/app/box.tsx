@@ -9,7 +9,7 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Theme>
       <LayoutBox>
-        Timer
+        Hello world
       </LayoutBox>
     </Theme>
   </StrictMode>,
