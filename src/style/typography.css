@@ -32,3 +32,33 @@
   --default-font-size: var(--font-size-16); /* Same size used for `<Text size="3">` */
   --default-line-height: var(--line-height-24); /* Equivalent to the line-height used for `<Text size="3">` 16px * 1.5 = 24px */
 }
+
+@theme {
+  --text-xs: var(--font-size-12);
+  --text-sm: var(--font-size-14);
+  --font-md: var(--font-size-16);
+  --text-lg: var(--font-size-18);
+  --text-xl: var(--font-size-20);
+  --text-2xl: var(--font-size-24);
+  --text-3xl: var(--font-size-28);
+  --text-4xl: var(--font-size-35);
+  --text-5xl: var(--font-size-60);
+
+  --font-weight-light: var(--font-weight-light);
+  --font-weight-normal: var(--font-weight-regular);
+  --font-weight-medium: var(--font-weight-medium);
+  --font-weight-bold: var(--font-weight-bold);
+
+  --leading-xs: var(--line-height-16);
+  --leading-sm: var(--line-height-20);
+  --leading-md: var(--line-height-24);
+  --leading-lg: var(--line-height-28);
+  --leading-xl: var(--line-height-30);
+  --leading-2xl: var(--line-height-36);
+  --leading-3xl: var(--line-height-40);
+  --leading-4xl: var(--line-height-60);
+
+  --default-font-family: var(--default-font-family);
+  --default-font-size: var(--default-font-size);
+  --default-line-height: var(--default-line-height);
+}
