@@ -1,17 +1,21 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import type { ReactElement } from 'react'
+import type { Place } from '../place/type'
+import { useState } from 'react'
 import { LayoutBox } from '../layout/box'
 import { PlaceBox } from '../place/box'
+import { MOCK_PLACES } from '../place/type'
 import { TimeBox } from '../time/box'
-import '../style/main.css'
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+export function AppBox(): ReactElement {
+  const [places, setPlaces] = useState<Place[]>(MOCK_PLACES)
+  const [time] = useState(() => new Date(2025, 8, 28, 10, 0, 0))
+
+  return (
     <LayoutBox>
       <div className="m-12 flex flex-col gap-12">
-        <PlaceBox />
-        <TimeBox />
+        <PlaceBox places={places} setPlaces={setPlaces} />
+        <TimeBox places={places} time={time} />
       </div>
     </LayoutBox>
-  </StrictMode>,
-)
+  )
+}
