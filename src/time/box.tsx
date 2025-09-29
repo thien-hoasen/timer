@@ -10,7 +10,7 @@ export function TimeBox(props: {
   const { places, time } = props
 
   return (
-    <div className="bg-gray-1 rounded-8 p-16">
+    <div className="flex-1 bg-gray-1 rounded-8 p-16">
       <div className="flex justify-between font-medium pb-12">
         <div>
           Selected Time

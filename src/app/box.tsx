@@ -12,7 +12,7 @@ export function AppBox(): ReactElement {
 
   return (
     <LayoutBox>
-      <div className="m-12 flex flex-col gap-12">
+      <div className="p-12 h-full flex flex-col gap-12">
         <PlaceBox places={places} setPlaces={setPlaces} />
         <TimeBox places={places} time={time} />
       </div>
