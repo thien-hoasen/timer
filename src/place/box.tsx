@@ -1,31 +1,16 @@
 import type { ReactElement } from 'react'
-import type { Place } from './type'
 import { getCountry, getTimezone } from 'countries-and-timezones'
-import { Star } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Home } from 'lucide-react'
 import { twJoin } from 'tailwind-merge'
 import { getDateTimeFormat } from '../util/datetime'
-import { getPlaceName, MOCK_PLACES } from './type'
+import { MOCK_TIMEZONES } from './type'
+
+const LOCAL_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 export function PlaceBox(props: {
-  places: Place[]
-  setPlaces: (places: Place[]) => void
+  time: Date
 }): ReactElement {
-  const { places, setPlaces } = props
-
-  const [time, setTime] = useState(() => new Date())
-
-  useEffect(() => {
-    const interval = setInterval(() => setTime(new Date()), 1000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const togglePrimary = (selectedPlace: Place) => {
-    const updatedPlaces = places.map((place) => {
-      return { ...place, isPrimary: place.id === selectedPlace.id }
-    })
-    setPlaces(updatedPlaces)
-  }
+  const { time } = props
 
   return (
     <div
@@ -34,39 +19,38 @@ export function PlaceBox(props: {
         'bg-gray-1 rounded-8 font-medium',
       )}
     >
-      {places.map((place, index) => {
-        const timezone = getTimezone(place.timezone)
-        const country = getCountry(place.id)
-
-        if (!timezone || !country) {
+      {[
+        LOCAL_TIMEZONE,
+        ...MOCK_TIMEZONES.filter(tz => tz !== LOCAL_TIMEZONE),
+      ].map((tz, index) => {
+        const timezone = getTimezone(tz)
+        if (!timezone || timezone.countries.length === 0)
           return null
-        }
+
+        const country = getCountry(timezone.countries[0])
+        if (!country)
+          return null
 
         return (
           <div
-            key={place.id}
+            key={tz}
             className={twJoin(
               'h-full flex justify-between items-center gap-16 py-16',
-              index !== MOCK_PLACES.length - 1 && 'border-b border-gray-3',
+              index !== MOCK_TIMEZONES.length - 1 && 'border-b border-gray-3',
             )}
           >
-            <button
-              type="button"
-              onClick={() => togglePrimary(place)}
-            >
-              <Star
-                size={20}
-                fill={place.isPrimary
-                  ? 'var(--color-star-10)'
-                  : 'var(--color-gray-10)'}
-                color={place.isPrimary
-                  ? 'var(--color-star-10)'
-                  : 'var(--color-gray-10)'}
-              />
-            </button>
+            <Home
+              size={20}
+              fill={index === 0
+                ? 'var(--color-accent-10)'
+                : 'var(--color-gray-10)'}
+              color={index === 0
+                ? 'var(--color-accent-10)'
+                : 'var(--color-gray-10)'}
+            />
             <div className="flex-1 flex flex-col">
               <div className="font-medium">
-                {getPlaceName(place)}
+                {tz.split('/').pop()?.replaceAll('_', ' ')}
               </div>
               <div className="text-xs font-light text-gray-10">
                 {country.name}
@@ -78,7 +62,7 @@ export function PlaceBox(props: {
                 'font-medium text-sm text-accent-10',
               )}
             >
-              {getDateTimeFormat(place.timezone).format(time)}
+              {getDateTimeFormat(tz).format(time)}
             </div>
           </div>
         )

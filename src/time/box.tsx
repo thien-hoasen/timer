@@ -1,16 +1,13 @@
 import type { ReactElement } from 'react'
-import type { Place } from '../place/type'
 import { twJoin } from 'tailwind-merge'
 import { TimePreset } from './preset'
 import { TimeWheel } from './wheel'
 
 export function TimeBox(props: {
-  places: Place[]
   time: Date
   setTime: (time: Date) => void
 }): ReactElement {
   const { time, setTime } = props
-
   return (
     <div
       className={twJoin(
