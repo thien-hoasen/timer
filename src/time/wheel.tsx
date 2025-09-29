@@ -59,10 +59,38 @@ function colorToDate(color: Color, baseDate?: Date): Date {
   // Clamp minutes between 0 and 1439
   const timeClamped = Math.max(0, Math.min(1439, totalMinutes))
   // Calculate hours and minutes
-  const hours = Math.floor(timeClamped / 60)
-  const mins = timeClamped % 60
+  let hours = Math.floor(timeClamped / 60)
+  let mins = timeClamped % 60
+
+  // Snap minutes
+  const snapped = snapMinutes(mins)
+  if (snapped === 0 && mins > 45) {
+    // Roll over to next hour
+    hours = (hours + 1) % 24
+  }
+  mins = snapped
+
   // Use baseDate or today
   const date = baseDate ? new Date(baseDate) : new Date()
   date.setHours(hours, mins, 0, 0) // set hours, minutes, seconds, ms
   return date
+}
+
+// Snap to nearest 15, 30, 45, or 60
+// Change this array to allow other snap points
+const SNAP_POINTS = [0, 15, 30, 45, 60]
+function snapMinutes(mins: number): number {
+  let closest = SNAP_POINTS[0]
+  let minDiff = Math.abs(mins - SNAP_POINTS[0])
+  for (let i = 1; i < SNAP_POINTS.length; i++) {
+    const diff = Math.abs(mins - SNAP_POINTS[i])
+    if (diff < minDiff) {
+      minDiff = diff
+      closest = SNAP_POINTS[i]
+    }
+  }
+  // If 60, roll over to 0 and add 1 hour
+  if (closest === 60)
+    return 0
+  return closest
 }
