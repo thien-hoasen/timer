@@ -77,6 +77,8 @@
   --accent-a10: var(--violet-a10);
   --accent-a11: var(--violet-a11);
   --accent-a12: var(--violet-a12);
+
+  --yellow-4: var(--amber-4);
 }
 
 @theme {
@@ -131,6 +133,8 @@
   --color-gray-10: var(--gray-10);
   --color-gray-11: var(--gray-11);
   --color-gray-12: var(--gray-12);
+
+  --color-yellow-4: var(--yellow-4);
 
   --color-background: var(--color-background);
 }

@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
 import { Moon, Sun, Sunrise, Sunset } from 'lucide-react'
 import { twJoin } from 'tailwind-merge'
-import { getDateTimeFormat } from '../util/datetime'
+import { getDateTimeFormatter } from '../util/datetime'
 
 export function TimePreset(props: {
   time: Date
@@ -24,7 +24,7 @@ export function TimePreset(props: {
           setTime(today)
         }}
       >
-        <Sun size={24} />
+        <Moon size={24} />
       </button>
       <div className="flex w-full justify-between items-center">
         <button
@@ -38,7 +38,7 @@ export function TimePreset(props: {
           <Sunset size={24} />
         </button>
         <div>
-          {getDateTimeFormat().format(time)}
+          {getDateTimeFormatter().format(time)}
         </div>
         <button
           type="button"
@@ -59,7 +59,7 @@ export function TimePreset(props: {
           setTime(today)
         }}
       >
-        <Moon size={24} />
+        <Sun size={24} />
       </button>
     </div>
   )

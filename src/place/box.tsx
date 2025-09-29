@@ -1,8 +1,8 @@
 import type { ReactElement } from 'react'
 import { getCountry, getTimezone } from 'countries-and-timezones'
 import { Home } from 'lucide-react'
-import { twJoin } from 'tailwind-merge'
-import { getDateTimeFormat } from '../util/datetime'
+import { twJoin, twMerge } from 'tailwind-merge'
+import { getDateTimeFormatter } from '../util/datetime'
 import { MOCK_TIMEZONES } from './type'
 
 const LOCAL_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -31,6 +31,13 @@ export function PlaceBox(props: {
         if (!country)
           return null
 
+        const timezoneFormatter = getDateTimeFormatter(tz)
+        const timeParts = timezoneFormatter.formatToParts(time)
+        const timezoneHour = timeParts.find(part => part.type === 'hour')?.value ?? null
+        const timezonePeriod = timeParts.find(part => part.type === 'dayPeriod')?.value ?? null
+        if (!timezoneHour || !timezonePeriod)
+          return null
+
         return (
           <div
             key={tz}
@@ -57,12 +64,29 @@ export function PlaceBox(props: {
               </div>
             </div>
             <div
-              className={twJoin(
-                'bg-accent-4 py-8 px-16 rounded-full',
-                'font-medium text-sm text-accent-10',
+              className={twMerge(
+                'py-8 px-16 rounded-full font-medium text-sm',
+                // default color
+                'bg-accent-10 text-accent-4',
+                // out of office
+                timezonePeriod === 'AM' && Number(timezoneHour) >= 6
+                  ? 'bg-accent-4 text-accent-10'
+                  : '',
+                // in office
+                timezonePeriod === 'AM' && Number(timezoneHour) >= 8
+                  ? 'bg-yellow-4 text-accent-10'
+                  : '',
+                // out of office
+                timezonePeriod === 'PM' && Number(timezoneHour) >= 6
+                  ? 'bg-accent-4 text-accent-10'
+                  : '',
+                // do not disturb
+                timezonePeriod === 'PM' && Number(timezoneHour) >= 9
+                  ? 'bg-yellow-4 text-accent-10'
+                  : '',
               )}
             >
-              {getDateTimeFormat(tz).format(time)}
+              {timezoneFormatter.format(time)}
             </div>
           </div>
         )

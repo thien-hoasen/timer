@@ -15,7 +15,17 @@ export function TimeWheel(props: {
       value={dateToColor(time)}
       onChange={value => setTime(colorToDate(value, time))}
     >
-      <ColorWheelTrack style={{ background: 'var(--color-accent-3)' }} />
+      <ColorWheelTrack
+        style={{
+          background: `conic-gradient(
+            var(--color-accent-10) 0deg 75deg,
+            var(--color-accent-6) 75deg 120deg,
+            var(--color-yellow-4) 120deg 255deg,
+            var(--color-accent-6) 255deg 330deg,
+            var(--color-accent-10) 330deg 360deg
+          )`,
+        }}
+      />
       <ColorThumb
         className={state => twJoin(
           'border-2 border-accent-8 rounded-half',
