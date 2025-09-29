@@ -6,6 +6,7 @@
   --radius-12: 12px;
   --radius-16: 16px;  
   --radius-full: 9999px;
+  --radius-half: 50%;
 }
 
 @theme {
@@ -16,4 +17,5 @@
   --radius-12: var(--radius-12);
   --radius-16: var(--radius-16);
   --radius-full: var(--radius-full);
+  --radius-half: var(--radius-half);
 }

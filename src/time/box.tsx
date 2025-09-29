@@ -1,34 +1,27 @@
 import type { ReactElement } from 'react'
 import type { Place } from '../place/type'
-import { getPlaceName } from '../place/type'
-import { getDateTimeFormat } from '../util/datetime'
+import { twJoin } from 'tailwind-merge'
+import { TimePreset } from './preset'
+import { TimeWheel } from './wheel'
 
 export function TimeBox(props: {
   places: Place[]
   time: Date
+  setTime: (time: Date) => void
 }): ReactElement {
-  const { places, time } = props
+  const { time, setTime } = props
 
   return (
-    <div className="flex-1 bg-gray-1 rounded-8 p-16">
-      <div className="flex justify-between font-medium pb-12">
-        <div>
-          Selected Time
-        </div>
-        <div>
-          {getDateTimeFormat().format(time)}
-        </div>
+    <div
+      className={twJoin(
+        'bg-gray-1 rounded-8 p-16 w-full aspect-square',
+        'flex justify-center items-center relative',
+      )}
+    >
+      <TimeWheel time={time} setTime={setTime} />
+      <div className="absolute top-80 left-80 w-190 aspect-square">
+        <TimePreset time={time} setTime={setTime} />
       </div>
-      {places.map(place => (
-        <div key={place.id} className="flex justify-between">
-          <div>
-            {getPlaceName(place)}
-          </div>
-          <div>
-            {getDateTimeFormat(place.timezone).format(time)}
-          </div>
-        </div>
-      ))}
     </div>
   )
 }

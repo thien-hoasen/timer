@@ -3,6 +3,7 @@ import type { Place } from './type'
 import { getCountry, getTimezone } from 'countries-and-timezones'
 import { Star } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { twJoin } from 'tailwind-merge'
 import { getDateTimeFormat } from '../util/datetime'
 import { getPlaceName, MOCK_PLACES } from './type'
 
@@ -27,10 +28,11 @@ export function PlaceBox(props: {
   }
 
   return (
-    <div className={[
-      'flex flex-col font-medium',
-      'bg-gray-1 rounded-8 px-16',
-    ].join(' ')}
+    <div
+      className={twJoin(
+        'flex-1 flex flex-col px-16 overflow-auto',
+        'bg-gray-1 rounded-8 font-medium',
+      )}
     >
       {places.map((place, index) => {
         const timezone = getTimezone(place.timezone)
@@ -43,10 +45,10 @@ export function PlaceBox(props: {
         return (
           <div
             key={place.id}
-            className={[
+            className={twJoin(
               'h-full flex justify-between items-center gap-16 py-16',
               index !== MOCK_PLACES.length - 1 && 'border-b border-gray-3',
-            ].join(' ')}
+            )}
           >
             <button
               type="button"
@@ -70,10 +72,11 @@ export function PlaceBox(props: {
                 {country.name}
               </div>
             </div>
-            <div className={[
-              'bg-accent-4 py-8 px-16 rounded-full',
-              'font-medium text-sm text-accent-10',
-            ].join(' ')}
+            <div
+              className={twJoin(
+                'bg-accent-4 py-8 px-16 rounded-full',
+                'font-medium text-sm text-accent-10',
+              )}
             >
               {getDateTimeFormat(place.timezone).format(time)}
             </div>

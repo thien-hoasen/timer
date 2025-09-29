@@ -7,7 +7,7 @@ export function LayoutBox(props: { children: ReactNode }): ReactElement {
   useTheme()
 
   return (
-    <div className={['w-full h-full overflow-hidden', 'relative'].join(' ')}>
+    <div className="w-full h-full overflow-hidden relative">
       {children}
     </div>
   )
