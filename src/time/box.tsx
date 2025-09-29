@@ -19,7 +19,7 @@ export function TimeBox(props: {
       )}
     >
       <TimeWheel time={time} setTime={setTime} />
-      <div className="absolute top-80 left-80 w-190 aspect-square">
+      <div className="absolute w-190 aspect-square">
         <TimePreset time={time} setTime={setTime} />
       </div>
     </div>
