@@ -12,3 +12,5 @@ export const MOCK_TIMEZONES: string[] = [
   'Europe/Rome',
   'Europe/Paris',
 ]
+
+export const LOCAL_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone
