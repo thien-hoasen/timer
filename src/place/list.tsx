@@ -1,8 +1,8 @@
 import type { ReactElement } from 'react'
 import { getCountry, getTimezone } from 'countries-and-timezones'
 import { Home, X } from 'lucide-react'
-import { twJoin, twMerge } from 'tailwind-merge'
-import { getDateTimeFormatter } from '../util/datetime'
+import { twJoin } from 'tailwind-merge'
+import { PlaceTime } from './time'
 import { LOCAL_TIMEZONE } from './type'
 
 export function PlaceList(props: {
@@ -25,13 +25,6 @@ export function PlaceList(props: {
 
         const country = getCountry(timezone.countries[0])
         if (!country)
-          return null
-
-        const timezoneFormatter = getDateTimeFormatter(tz)
-        const timezoneFormatter24 = getDateTimeFormatter(tz, { hour12: false })
-        const timeParts = timezoneFormatter24.formatToParts(time)
-        const timezoneHour = timeParts.find(part => part.type === 'hour')?.value ?? null
-        if (!timezoneHour)
           return null
 
         return (
@@ -74,27 +67,7 @@ export function PlaceList(props: {
                 {country.name}
               </div>
             </div>
-            <div
-              className={twMerge(
-                'py-8 px-16 rounded-full font-medium text-sm',
-                // default color, do not disturb
-                'bg-accent-10 text-accent-4',
-                // out of office
-                Number(timezoneHour) >= 5 && Number(timezoneHour) < 8
-                  ? 'bg-accent-4 text-accent-10'
-                  : '',
-                // in office
-                Number(timezoneHour) >= 8 && Number(timezoneHour) < 17
-                  ? 'bg-yellow-4 text-accent-10'
-                  : '',
-                // out of office
-                Number(timezoneHour) >= 17 && Number(timezoneHour) < 22
-                  ? 'bg-accent-4 text-accent-10'
-                  : '',
-              )}
-            >
-              {timezoneFormatter.format(time)}
-            </div>
+            <PlaceTime time={time} timezone={tz} />
           </div>
         )
       })}

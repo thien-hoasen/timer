@@ -79,7 +79,19 @@
   --accent-a12: var(--violet-a12);
 
   --yellow-4: var(--amber-4);
+
+  --danger-1: var(--tomato-1);
+  --danger-2: var(--tomato-2);
+  --danger-3: var(--tomato-3);
+  --danger-4: var(--tomato-4);
+  --danger-5: var(--tomato-5);
+  --danger-6: var(--tomato-6);
+  --danger-7: var(--tomato-7);
+  --danger-8: var(--tomato-8);
+  --danger-9: var(--tomato-9);
   --danger-10: var(--tomato-10);
+  --danger-11: var(--tomato-11);
+  --danger-12: var(--tomato-12);
 }
 
 @theme {
@@ -136,7 +148,19 @@
   --color-gray-12: var(--gray-12);
 
   --color-yellow-4: var(--yellow-4);
+
+  --color-danger-1: var(--danger-1);
+  --color-danger-2: var(--danger-2);
+  --color-danger-3: var(--danger-3);
+  --color-danger-4: var(--danger-4);
+  --color-danger-5: var(--danger-5);
+  --color-danger-6: var(--danger-6);
+  --color-danger-7: var(--danger-7);
+  --color-danger-8: var(--danger-8);
+  --color-danger-9: var(--danger-9);
   --color-danger-10: var(--danger-10);
+  --color-danger-11: var(--danger-11);
+  --color-danger-12: var(--danger-12);
 
   --color-background: var(--color-background);
 }

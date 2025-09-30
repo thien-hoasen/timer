@@ -8,6 +8,8 @@ export function TimeWheel(props: {
 }) {
   const { time, setTime } = props
 
+  const isWeekend = time.getDay() === 0 || time.getDay() === 6
+
   return (
     <ColorWheel
       outerRadius={152}
@@ -17,22 +19,31 @@ export function TimeWheel(props: {
     >
       <ColorWheelTrack
         style={{
-          background: `conic-gradient(
-            var(--color-accent-10) 0deg 75deg,
-            var(--color-accent-6) 75deg 120deg,
-            var(--color-yellow-4) 120deg 255deg,
-            var(--color-accent-6) 255deg 330deg,
-            var(--color-accent-10) 330deg 360deg
-          )`,
+          background: isWeekend
+            ? `conic-gradient(
+              var(--color-danger-10) 0deg 75deg,
+              var(--color-danger-6) 75deg 120deg,
+              var(--color-danger-4) 120deg 255deg,
+              var(--color-danger-6) 255deg 330deg,
+              var(--color-danger-10) 330deg 360deg)`
+            : `conic-gradient(
+              var(--color-accent-10) 0deg 75deg,
+              var(--color-accent-4) 75deg 120deg,
+              var(--color-yellow-4) 120deg 255deg,
+              var(--color-accent-4) 255deg 330deg,
+              var(--color-accent-10) 330deg 360deg)`,
         }}
       />
       <ColorThumb
         className={state => twJoin(
-          'border-2 border-accent-8 rounded-half',
+          'border-2 rounded-half',
+          isWeekend ? 'border-danger-8' : 'border-accent-8',
           'w-52 h-52 box-border',
           state.isFocusVisible && 'w-56 h-56',
         )}
-        style={{ backgroundColor: 'var(--color-accent-8)' }}
+        style={{ backgroundColor: isWeekend
+          ? 'var(--color-danger-8)'
+          : 'var(--color-accent-8)' }}
       />
     </ColorWheel>
   )

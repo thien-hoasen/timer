@@ -5,7 +5,11 @@ import { PlaceBox } from '../place/box'
 import { TimeBox } from '../time/box'
 
 export function AppBox(): ReactElement {
-  const [time, setTime] = useState(initTime)
+  const [time, setTime] = useState(() => {
+    const now = new Date()
+    now.setHours(0, 0, 0, 0)
+    return now
+  })
   const [timezones, setTimezones] = useState<string[]>(() => {
     const tzs = localStorage.getItem('timezones') as string | null
     return tzs ? JSON.parse(tzs) : []
@@ -28,10 +32,4 @@ export function AppBox(): ReactElement {
       </div>
     </LayoutBox>
   )
-}
-
-function initTime(): Date {
-  const now = new Date()
-  now.setHours(0, 0, 0, 0)
-  return now
 }
