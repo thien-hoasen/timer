@@ -1,3 +1,4 @@
+import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { Combobox } from '@base-ui-components/react'
 import { getAllTimezones, getCountry, getTimezone } from 'countries-and-timezones'
@@ -7,14 +8,14 @@ import { twJoin } from 'tailwind-merge'
 import { LOCAL_TIMEZONE } from './type'
 
 export function PlaceSearch(props: {
-  timezones: string[]
-  setTimezones: (timezones: string[]) => void
+  timezones: TimezoneName[]
+  setTimezones: (timezones: TimezoneName[]) => void
 }): ReactElement {
   const { timezones, setTimezones } = props
 
   const [search, setSearch] = useState('')
 
-  const items = Object.keys(getAllTimezones())
+  const items = (Object.keys(getAllTimezones()) as TimezoneName[])
     .filter(timezone => !timezones.includes(timezone) && timezone !== LOCAL_TIMEZONE)
     .map(timezone => timezone)
 
@@ -24,7 +25,7 @@ export function PlaceSearch(props: {
       inputValue={search}
       onInputValueChange={setSearch}
       onValueChange={(value) => {
-        setTimezones([...timezones, value])
+        setTimezones([...timezones, value as TimezoneName])
         setSearch('')
       }}
       limit={10}

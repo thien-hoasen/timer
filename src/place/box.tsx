@@ -1,3 +1,4 @@
+import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { twJoin } from 'tailwind-merge'
 import { PlaceList } from './list'
@@ -5,8 +6,8 @@ import { PlaceSearch } from './search'
 
 export function PlaceBox(props: {
   time: Date
-  timezones: string[]
-  setTimezones: (timezones: string[]) => void
+  timezones: TimezoneName[]
+  setTimezones: (timezones: TimezoneName[]) => void
 }): ReactElement {
   const { time, timezones, setTimezones } = props
 

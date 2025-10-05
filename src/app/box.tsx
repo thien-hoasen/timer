@@ -1,3 +1,4 @@
+import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { useState } from 'react'
 import { LayoutBox } from '../layout/box'
@@ -10,12 +11,12 @@ export function AppBox(): ReactElement {
     now.setHours(0, 0, 0, 0)
     return now
   })
-  const [timezones, setTimezones] = useState<string[]>(() => {
+  const [timezones, setTimezones] = useState<TimezoneName[]>(() => {
     const tzs = localStorage.getItem('timezones') as string | null
     return tzs ? JSON.parse(tzs) : []
   })
 
-  const onTimezonesChange = (tzs: string[]) => {
+  const onTimezonesChange = (tzs: TimezoneName[]) => {
     setTimezones(tzs)
     localStorage.setItem('timezones', JSON.stringify(tzs))
   }

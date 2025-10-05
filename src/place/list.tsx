@@ -1,3 +1,4 @@
+import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { getCountry, getTimezone } from 'countries-and-timezones'
 import { Home, X } from 'lucide-react'
@@ -7,8 +8,8 @@ import { LOCAL_TIMEZONE } from './type'
 
 export function PlaceList(props: {
   time: Date
-  timezones: string[]
-  setTimezones: (timezones: string[]) => void
+  timezones: TimezoneName[]
+  setTimezones: (timezones: TimezoneName[]) => void
 }): ReactElement {
   const { time, timezones, setTimezones } = props
 
@@ -54,8 +55,8 @@ export function PlaceList(props: {
                   >
                     <X
                       size={20}
-                      fill="var(--color-danger-10)"
-                      color="var(--color-danger-10)"
+                      fill="var(--color-gray-10)"
+                      color="var(--color-gray-10)"
                     />
                   </button>
                 )}

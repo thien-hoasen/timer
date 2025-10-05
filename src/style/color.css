@@ -6,14 +6,6 @@
 @import "@radix-ui/colors/violet-dark.css";
 @import "@radix-ui/colors/black-alpha.css";
 @import "@radix-ui/colors/white-alpha.css";
-@import "@radix-ui/colors/tomato.css";
-@import "@radix-ui/colors/tomato-dark.css";
-@import "@radix-ui/colors/tomato-alpha.css";
-@import "@radix-ui/colors/tomato-dark-alpha.css";
-@import "@radix-ui/colors/amber.css";
-@import "@radix-ui/colors/amber-dark.css";
-@import "@radix-ui/colors/amber-alpha.css";
-@import "@radix-ui/colors/amber-dark-alpha.css";
 
 /* https://github.com/radix-ui/themes/blob/544982ad6e52f84673f1f48736cf7e5501d70e9e/packages/radix-ui-themes/src/styles/tokens/color.css */
 :where(:root) {
@@ -77,21 +69,6 @@
   --accent-a10: var(--violet-a10);
   --accent-a11: var(--violet-a11);
   --accent-a12: var(--violet-a12);
-
-  --yellow-4: var(--amber-4);
-
-  --danger-1: var(--tomato-1);
-  --danger-2: var(--tomato-2);
-  --danger-3: var(--tomato-3);
-  --danger-4: var(--tomato-4);
-  --danger-5: var(--tomato-5);
-  --danger-6: var(--tomato-6);
-  --danger-7: var(--tomato-7);
-  --danger-8: var(--tomato-8);
-  --danger-9: var(--tomato-9);
-  --danger-10: var(--tomato-10);
-  --danger-11: var(--tomato-11);
-  --danger-12: var(--tomato-12);
 }
 
 @theme {
@@ -146,21 +123,6 @@
   --color-gray-10: var(--gray-10);
   --color-gray-11: var(--gray-11);
   --color-gray-12: var(--gray-12);
-
-  --color-yellow-4: var(--yellow-4);
-
-  --color-danger-1: var(--danger-1);
-  --color-danger-2: var(--danger-2);
-  --color-danger-3: var(--danger-3);
-  --color-danger-4: var(--danger-4);
-  --color-danger-5: var(--danger-5);
-  --color-danger-6: var(--danger-6);
-  --color-danger-7: var(--danger-7);
-  --color-danger-8: var(--danger-8);
-  --color-danger-9: var(--danger-9);
-  --color-danger-10: var(--danger-10);
-  --color-danger-11: var(--danger-11);
-  --color-danger-12: var(--danger-12);
 
   --color-background: var(--color-background);
 }
