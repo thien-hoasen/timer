@@ -3,6 +3,7 @@ import type { ReactElement } from 'react'
 import { getCountry, getTimezone } from 'countries-and-timezones'
 import { Home, X } from 'lucide-react'
 import { twJoin } from 'tailwind-merge'
+import { PlaceStatus } from './status'
 import { PlaceTime } from './time'
 import { LOCAL_TIMEZONE } from './type'
 
@@ -19,7 +20,7 @@ export function PlaceList(props: {
       {[
         LOCAL_TIMEZONE,
         ...timezones.filter(tz => tz !== LOCAL_TIMEZONE),
-      ].map((tz, index) => {
+      ].map((tz) => {
         const timezone = getTimezone(tz)
         if (!timezone || timezone.countries.length === 0)
           return null
@@ -36,29 +37,30 @@ export function PlaceList(props: {
               'border-b border-gray-3',
             )}
           >
-            {index === 0
+            {tz === LOCAL_TIMEZONE
               ? (
-                  <button type="button">
-                    <Home
-                      size={20}
-                      fill="var(--color-accent-10)"
-                      color="var(--color-accent-10)"
-                    />
-                  </button>
+                  <Home
+                    size={20}
+                    fill="var(--color-accent-10)"
+                    color="var(--color-accent-10)"
+                  />
                 )
               : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setTimezones(timezones.filter(t => t !== tz))
-                    }}
-                  >
-                    <X
-                      size={20}
-                      fill="var(--color-gray-10)"
-                      color="var(--color-gray-10)"
-                    />
-                  </button>
+                  <div className="flex flex-col items-center gap-16">
+                    <PlaceStatus time={time} timezone={tz} />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTimezones(timezones.filter(t => t !== tz))
+                      }}
+                    >
+                      <X
+                        size={20}
+                        fill="var(--color-gray-10)"
+                        color="var(--color-gray-10)"
+                      />
+                    </button>
+                  </div>
                 )}
             <div className="flex-1 flex flex-col">
               <div className="font-medium">

@@ -27,8 +27,8 @@ export function PlaceTime(props: {
       className={twMerge(
         'py-8 px-16 rounded-full font-medium text-sm',
         'bg-accent-12 text-accent-4',
-        isOutOfOffice && 'bg-accent-10 text-accent-4',
-        isInOffice && 'bg-accent-6 text-accent-10',
+        isOutOfOffice && 'bg-accent-10 text-accent-2',
+        isInOffice && 'bg-accent-8 text-accent-12',
       )}
     >
       {timezoneFormatter.format(time)}

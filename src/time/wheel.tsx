@@ -20,18 +20,18 @@ export function TimeWheel(props: {
           background: `conic-gradient(
             var(--color-accent-12) 0deg 75deg,
             var(--color-accent-10) 75deg 120deg,
-            var(--color-accent-6) 120deg 255deg,
+            var(--color-accent-8) 120deg 255deg,
             var(--color-accent-10) 255deg 330deg,
             var(--color-accent-12) 330deg 360deg)`,
         }}
       />
       <ColorThumb
         className={state => twJoin(
-          'border-2 border-accent-8 rounded-half',
-          'w-52 h-52 box-border',
+          'border-2 border-gray-2 rounded-half',
+          'w-42 h-42 box-border',
           state.isFocusVisible && 'w-56 h-56',
         )}
-        style={{ backgroundColor: 'var(--color-accent-8)' }}
+        style={{ backgroundColor: 'var(--color-gray-2)' }}
       />
     </ColorWheel>
   )
