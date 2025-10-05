@@ -9,6 +9,26 @@ export function TimeWheel(props: {
 }) {
   const { time, setTime } = props
 
+  const haptics = () => {
+    if (navigator.vibrate) {
+      navigator.vibrate([100])
+      return
+    }
+
+    const labelEl = document.createElement('label')
+    labelEl.ariaHidden = 'true'
+    labelEl.style.display = 'none'
+
+    const inputEl = document.createElement('input')
+    inputEl.type = 'checkbox'
+    inputEl.setAttribute('switch', '')
+    labelEl.appendChild(inputEl)
+
+    document.head.appendChild(labelEl)
+    labelEl.click()
+    document.head.removeChild(labelEl)
+  }
+
   return (
     <ColorWheel
       outerRadius={152}
@@ -26,6 +46,7 @@ export function TimeWheel(props: {
           state.isFocusVisible && 'w-56 h-56',
         )}
         style={{ backgroundColor: 'var(--color-white-a12)' }}
+        onClick={haptics}
       />
     </ColorWheel>
   )
