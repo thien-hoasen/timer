@@ -1,6 +1,7 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { getSchedule, SCHEDULE } from '../time/schedule'
 import { getDateTimeFormatter } from '../util/datetime'
 
 export function PlaceTime(props: {
@@ -10,26 +11,20 @@ export function PlaceTime(props: {
   const { time, timezone } = props
 
   const timezoneFormatter = getDateTimeFormatter(timezone)
-  const timezoneFormatter24 = getDateTimeFormatter(timezone, { hour12: false })
-  const timeParts = timezoneFormatter24.formatToParts(time)
-  const timezoneHour = timeParts.find(part => part.type === 'hour')?.value ?? null
+  const schedule = getSchedule(time, timezone)
 
-  if (!timezoneHour)
+  if (!schedule)
     return null
-
-  const isOutOfOffice = false
-    || (Number(timezoneHour) >= 5 && Number(timezoneHour) < 8)
-    || (Number(timezoneHour) >= 17 && Number(timezoneHour) < 22)
-  const isInOffice = Number(timezoneHour) >= 8 && Number(timezoneHour) < 17
 
   return (
     <div
       className={twMerge(
         'py-8 px-16 rounded-full font-medium text-sm',
-        'bg-accent-12 text-accent-4',
-        isOutOfOffice && 'bg-accent-10 text-accent-2',
-        isInOffice && 'bg-accent-8 text-accent-12',
       )}
+      style={{
+        backgroundColor: SCHEDULE[schedule].backgroundColor,
+        color: SCHEDULE[schedule].textColor,
+      }}
     >
       {timezoneFormatter.format(time)}
     </div>

@@ -1,6 +1,7 @@
 import type { Color } from 'react-aria-components'
 import { ColorThumb, ColorWheel, ColorWheelTrack, parseColor } from 'react-aria-components'
 import { twJoin } from 'tailwind-merge'
+import { getWheelColors } from './schedule'
 
 export function TimeWheel(props: {
   time: Date
@@ -16,22 +17,15 @@ export function TimeWheel(props: {
       onChange={value => setTime(colorToDate(value, time))}
     >
       <ColorWheelTrack
-        style={{
-          background: `conic-gradient(
-            var(--color-accent-12) 0deg 75deg,
-            var(--color-accent-10) 75deg 120deg,
-            var(--color-accent-8) 120deg 255deg,
-            var(--color-accent-10) 255deg 330deg,
-            var(--color-accent-12) 330deg 360deg)`,
-        }}
+        style={{ background: `conic-gradient(${getWheelColors().join(',')})` }}
       />
       <ColorThumb
         className={state => twJoin(
-          'border-2 border-gray-2 rounded-half',
+          'border-2 border-white-a12 rounded-half',
           'w-42 h-42 box-border',
           state.isFocusVisible && 'w-56 h-56',
         )}
-        style={{ backgroundColor: 'var(--color-gray-2)' }}
+        style={{ backgroundColor: 'var(--color-white-a12)' }}
       />
     </ColorWheel>
   )

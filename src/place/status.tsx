@@ -1,7 +1,7 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { AlertTriangle, BellOff, CheckCheck } from 'lucide-react'
-import { getDateTimeFormatter } from '../util/datetime'
+import { getSchedule } from '../time/schedule'
 import { LOCAL_TIMEZONE } from './type'
 
 export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): ReactElement | null {
@@ -10,26 +10,9 @@ export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): Reac
   if (timezone === LOCAL_TIMEZONE)
     return null
 
-  const timezoneFormatter24 = getDateTimeFormatter(timezone, { hour12: false })
-  const timeParts = timezoneFormatter24.formatToParts(time)
-  const timezoneHour = timeParts.find(part => part.type === 'hour')?.value ?? null
+  const schedule = getSchedule(time, timezone)
 
-  if (!timezoneHour) {
-    return (
-      <BellOff
-        size={20}
-        fill="var(--color-accent-10)"
-        color="var(--color-accent-10)"
-      />
-    )
-  }
-
-  const isOutOfOffice = false
-    || (Number(timezoneHour) >= 5 && Number(timezoneHour) < 8)
-    || (Number(timezoneHour) >= 17 && Number(timezoneHour) < 22)
-  const isInOffice = Number(timezoneHour) >= 8 && Number(timezoneHour) < 17
-
-  if (isOutOfOffice) {
+  if (schedule === 'outOfOffice') {
     return (
       <AlertTriangle
         size={20}
@@ -39,7 +22,7 @@ export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): Reac
     )
   }
 
-  if (isInOffice) {
+  if (schedule === 'inOffice') {
     return (
       <CheckCheck
         size={20}
