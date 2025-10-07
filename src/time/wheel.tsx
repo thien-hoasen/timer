@@ -1,6 +1,7 @@
 import type { Color } from 'react-aria-components'
 import { ColorThumb, ColorWheel, ColorWheelTrack, parseColor } from 'react-aria-components'
 import { twJoin } from 'tailwind-merge'
+import { useHaptic } from '../hook/useHaptic'
 import { getWheelColors } from './schedule'
 
 export function TimeWheel(props: {
@@ -8,6 +9,8 @@ export function TimeWheel(props: {
   setTime: (time: Date) => void
 }) {
   const { time, setTime } = props
+
+  const { triggerHaptic } = useHaptic()
 
   return (
     <ColorWheel
@@ -26,7 +29,8 @@ export function TimeWheel(props: {
           state.isFocusVisible && 'w-56 h-56',
         )}
         style={{ backgroundColor: 'var(--color-white-a12)' }}
-        onClick={() => haptics([100])}
+        onClick={() => triggerHaptic()}
+        onTouchEnd={() => triggerHaptic()}
       />
     </ColorWheel>
   )
@@ -87,24 +91,4 @@ function snapMinutes(mins: number): number {
   if (closest === 60)
     return 0
   return closest
-}
-
-function haptics(pattern: number[]) {
-  if (navigator.vibrate) {
-    navigator.vibrate(pattern)
-    return
-  }
-
-  const labelEl = document.createElement('label')
-  labelEl.ariaHidden = 'true'
-  labelEl.style.display = 'none'
-
-  const inputEl = document.createElement('input')
-  inputEl.type = 'checkbox'
-  inputEl.setAttribute('switch', '')
-  labelEl.appendChild(inputEl)
-
-  document.head.appendChild(labelEl)
-  labelEl.click()
-  document.head.removeChild(labelEl)
 }

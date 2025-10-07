@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import { Moon, Sun, Sunrise, Sunset } from 'lucide-react'
 import { twJoin } from 'tailwind-merge'
+import { useHaptic } from '../hook/useHaptic'
 import { getDateTimeFormatter } from '../util/datetime'
 
 export function TimePreset(props: {
@@ -8,6 +9,8 @@ export function TimePreset(props: {
   setTime: (time: Date) => void
 }): ReactElement {
   const { time, setTime } = props
+
+  const { triggerHaptic } = useHaptic()
 
   return (
     <div
@@ -22,6 +25,7 @@ export function TimePreset(props: {
           const today = new Date()
           today.setHours(0, 0, 0, 0)
           setTime(today)
+          triggerHaptic()
         }}
       >
         <Moon size={24} />
@@ -33,6 +37,7 @@ export function TimePreset(props: {
             const today = new Date()
             today.setHours(18, 0, 0, 0)
             setTime(today)
+            triggerHaptic()
           }}
         >
           <Sunset size={24} />
@@ -46,6 +51,7 @@ export function TimePreset(props: {
             const today = new Date()
             today.setHours(6, 0, 0, 0)
             setTime(today)
+            triggerHaptic()
           }}
         >
           <Sunrise size={24} />
@@ -57,6 +63,7 @@ export function TimePreset(props: {
           const today = new Date()
           today.setHours(12, 0, 0, 0)
           setTime(today)
+          triggerHaptic()
         }}
       >
         <Sun size={24} />
