@@ -1,6 +1,5 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
-import { twMerge } from 'tailwind-merge'
 import { getSchedule, SCHEDULE } from '../time/schedule'
 import { getDateTimeFormatter } from '../util/datetime'
 
@@ -18,9 +17,7 @@ export function PlaceTime(props: {
 
   return (
     <div
-      className={twMerge(
-        'py-8 px-16 rounded-full font-medium text-sm',
-      )}
+      className="py-8 px-16 rounded-full font-medium text-sm tabular-nums"
       style={{
         backgroundColor: SCHEDULE[schedule].backgroundColor,
         color: SCHEDULE[schedule].textColor,

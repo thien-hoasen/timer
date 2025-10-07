@@ -42,7 +42,7 @@ export function TimePreset(props: {
         >
           <Sunset size={24} />
         </button>
-        <div>
+        <div className="tabular-nums">
           {getDateTimeFormatter().format(time)}
         </div>
         <button
