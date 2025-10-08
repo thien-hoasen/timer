@@ -1,5 +1,7 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
+import { Pencil } from 'lucide-react'
+import { useState } from 'react'
 import { twJoin } from 'tailwind-merge'
 import { PlaceList } from './list'
 import { PlaceSearch } from './search'
@@ -11,6 +13,8 @@ export function PlaceBox(props: {
 }): ReactElement {
   const { time, timezones, setTimezones } = props
 
+  const [isDeleting, setIsDeleting] = useState<boolean>(false)
+
   return (
     <div
       className={twJoin(
@@ -18,8 +22,26 @@ export function PlaceBox(props: {
         'bg-gray-1 rounded-8 font-medium',
       )}
     >
-      <PlaceList time={time} timezones={timezones} setTimezones={setTimezones} />
-      <PlaceSearch timezones={timezones} setTimezones={setTimezones} />
+      <div className="flex w-full items-center justify-between pt-16 pb-8">
+        <button
+          type="button"
+          className={twJoin(
+            'rounded-half p-8',
+            isDeleting ? 'bg-accent-10 text-accent-4' : 'bg-gray-3 text-gray-12',
+          )}
+          onClick={() => setIsDeleting(!isDeleting)}
+        >
+          <Pencil size={20} />
+        </button>
+        <PlaceSearch timezones={timezones} setTimezones={setTimezones} />
+      </div>
+      <PlaceList
+        time={time}
+        timezones={timezones}
+        setTimezones={setTimezones}
+        isDeleting={isDeleting}
+        setIsDeleting={setIsDeleting}
+      />
     </div>
   )
 }

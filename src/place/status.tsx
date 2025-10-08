@@ -2,7 +2,7 @@ import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { AlertTriangle, BellOff, CheckCheck } from 'lucide-react'
 import { getSchedule } from '../time/schedule'
-import { LOCAL_TIMEZONE } from './type'
+import { LOCAL_TIMEZONE } from '../util/datetime'
 
 export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): ReactElement | null {
   const { time, timezone } = props

@@ -1,18 +1,20 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { getCountry, getTimezone } from 'countries-and-timezones'
-import { Home, X } from 'lucide-react'
+import { Home, Trash } from 'lucide-react'
 import { twJoin } from 'tailwind-merge'
+import { getTimezoneName, LOCAL_TIMEZONE } from '../util/datetime'
 import { PlaceStatus } from './status'
 import { PlaceTime } from './time'
-import { LOCAL_TIMEZONE } from './type'
 
 export function PlaceList(props: {
   time: Date
   timezones: TimezoneName[]
   setTimezones: (timezones: TimezoneName[]) => void
+  isDeleting: boolean
+  setIsDeleting: (isDeleting: boolean) => void
 }): ReactElement {
-  const { time, timezones, setTimezones } = props
+  const { time, timezones, setTimezones, isDeleting, setIsDeleting } = props
 
   return (
     <>
@@ -29,15 +31,17 @@ export function PlaceList(props: {
         if (!country)
           return null
 
+        const isLocalTimezone = tz === LOCAL_TIMEZONE
+
         return (
           <div
             key={tz}
             className={twJoin(
               'h-max flex justify-between items-center gap-16 py-16',
-              'border-b border-gray-3',
+              isLocalTimezone && 'border-b border-gray-3',
             )}
           >
-            {tz === LOCAL_TIMEZONE
+            {isLocalTimezone
               ? (
                   <Home
                     size={20}
@@ -45,26 +49,28 @@ export function PlaceList(props: {
                     color="var(--color-accent-10)"
                   />
                 )
-              : (
-                  <div className="flex flex-col items-center gap-16">
-                    <PlaceStatus time={time} timezone={tz} />
+              : isDeleting
+                ? (
                     <button
                       type="button"
                       onClick={() => {
-                        setTimezones(timezones.filter(t => t !== tz))
+                        setTimezones(timezones.filter(timezone => timezone !== tz))
+                        if (timezones.length === 1)
+                          setIsDeleting(false)
                       }}
                     >
-                      <X
-                        size={20}
-                        fill="var(--color-gray-10)"
-                        color="var(--color-gray-10)"
-                      />
+                      <Trash size={20} color="var(--color-gray-10)" />
                     </button>
-                  </div>
-                )}
+                  )
+                : (
+                    <PlaceStatus
+                      time={time}
+                      timezone={tz}
+                    />
+                  )}
             <div className="flex-1 flex flex-col">
               <div className="font-medium">
-                {tz.split('/').pop()?.replaceAll('_', ' ')}
+                {getTimezoneName(timezone.name)}
               </div>
               <div className="text-xs font-light text-gray-10">
                 {country.name}
