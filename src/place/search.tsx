@@ -3,7 +3,7 @@ import type { ReactElement } from 'react'
 import { Input } from '@base-ui-components/react'
 import { Dialog } from '@base-ui-components/react/dialog'
 import { Check, Home, Plus, Search, Star } from 'lucide-react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { twJoin } from 'tailwind-merge'
 import { ALL_TIMEZONES_DATA, LOCAL_TIMEZONE, LOCAL_TIMEZONE_DATA } from '../util/datetime'
 
@@ -15,6 +15,8 @@ export function PlaceSearch(props: {
 
   const [search, setSearch] = useState('')
   const [open, setOpen] = useState(false)
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const filteredTimezones = [LOCAL_TIMEZONE_DATA, ...ALL_TIMEZONES_DATA]
     .filter(({ timezone, country }) => {
@@ -34,7 +36,7 @@ export function PlaceSearch(props: {
       <Dialog.Portal>
         <Dialog.Backdrop
           className={twJoin(
-            'fixed inset-0 min-h-dvh bg-gray-12 opacity-20 dark:opacity-70',
+            'fixed inset-0 min-h-dvh bg-black-a12 opacity-20 dark:opacity-50',
             'transition-all duration-150',
             'data-[starting-style]:h-0 data-[ending-style]:h-0',
             'supports-[-webkit-touch-callout:none]:absolute',
@@ -57,6 +59,7 @@ export function PlaceSearch(props: {
             >
               <Search size={20} color="var(--color-gray-10)" />
               <Input
+                ref={inputRef}
                 placeholder="Search timezones"
                 className="py-8 w-full focus:outline-none"
                 value={search}
@@ -93,6 +96,7 @@ export function PlaceSearch(props: {
                     else
                       setTimezones([...timezones, id])
                     setSearch('')
+                    inputRef.current?.focus()
                   }}
                   disabled={isLocalTimezone}
                 >
