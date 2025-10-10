@@ -29,7 +29,7 @@ export function PlaceSearch(props: {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
-        <div className="bg-gray-3 rounded-half p-8">
+        <div className="bg-gray-3 rounded-half p-8 shadow-6">
           <Plus size={20} />
         </div>
       </Dialog.Trigger>
@@ -44,13 +44,14 @@ export function PlaceSearch(props: {
         />
         <Dialog.Popup
           className={twJoin(
-            'fixed bottom-0 left-0 w-full h-11/12 p-16 rounded-t-8 bg-gray-1',
+            'fixed bottom-0 left-0 w-full h-11/12 p-16 rounded-t-16 bg-gray-1',
             'transition-all duration-150 translate-y-0',
             'data-[ending-style]:translate-y-full',
             'data-[starting-style]:translate-y-full',
-            'flex flex-col gap-16',
+            'flex flex-col gap-16 shadow-6',
           )}
         >
+          <div className="h-4 w-36 mx-auto bg-gray-4 rounded-full" />
           <div className="flex items-center gap-16">
             <div className={twJoin(
               'relative flex items-center w-full gap-16 px-8',
@@ -68,13 +69,13 @@ export function PlaceSearch(props: {
             </div>
             <button
               type="button"
-              className="bg-accent-4 rounded-half p-8"
+              className="bg-gray-4 rounded-half p-8 shadow-6"
               onClick={() => {
                 setOpen(false)
                 setSearch('')
               }}
             >
-              <Check size={20} color="var(--color-accent-10)" />
+              <Check size={20} />
             </button>
           </div>
           <div className="flex-1 overflow-auto">
@@ -87,7 +88,7 @@ export function PlaceSearch(props: {
                   type="button"
                   className={twJoin(
                     'w-full h-max text-left',
-                    'flex items-center gap-16 py-16',
+                    'flex items-center gap-16 py-16 px-8',
                     isLocalTimezone && 'border-b border-gray-3',
                   )}
                   onClick={() => {

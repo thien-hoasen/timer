@@ -1,7 +1,7 @@
 import type { Color } from 'react-aria-components'
 import { ColorThumb, ColorWheel, ColorWheelTrack, parseColor } from 'react-aria-components'
 import { twJoin } from 'tailwind-merge'
-import { useHaptic } from '../hook/useHaptic'
+import { triggerHaptic } from '../util/haptic'
 import { getWheelColors } from './schedule'
 
 export function TimeWheel(props: {
@@ -9,8 +9,6 @@ export function TimeWheel(props: {
   setTime: (time: Date) => void
 }) {
   const { time, setTime } = props
-
-  const { triggerHaptic } = useHaptic()
 
   return (
     <ColorWheel

@@ -43,16 +43,19 @@ export function PlaceList(props: {
           >
             {isLocalTimezone
               ? (
-                  <Home
-                    size={20}
-                    fill="var(--color-accent-10)"
-                    color="var(--color-accent-10)"
-                  />
+                  <div className="p-8">
+                    <Home
+                      size={20}
+                      fill="var(--color-accent-10)"
+                      color="var(--color-accent-10)"
+                    />
+                  </div>
                 )
               : isDeleting
                 ? (
                     <button
                       type="button"
+                      className="bg-gray-3 rounded-half p-8 shadow-6"
                       onClick={() => {
                         setTimezones(timezones.filter(timezone => timezone !== tz))
                         if (timezones.length === 1)
@@ -63,10 +66,12 @@ export function PlaceList(props: {
                     </button>
                   )
                 : (
-                    <PlaceStatus
-                      time={time}
-                      timezone={tz}
-                    />
+                    <div className="p-8">
+                      <PlaceStatus
+                        time={time}
+                        timezone={tz}
+                      />
+                    </div>
                   )}
             <div className="flex-1 flex flex-col">
               <div className="font-medium">
