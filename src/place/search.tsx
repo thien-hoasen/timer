@@ -27,7 +27,7 @@ export function PlaceSearch(props: {
     throw new Error('Local timezone is not found')
 
   const addTimezone = (timezone: TimezoneName) => {
-    if (timezones.length > 4)
+    if (timezones.length === 4)
       // TODO: show error toast
       return
     setTimezones([...timezones, timezone])
