@@ -19,7 +19,7 @@ export function WheelBox(props: {
   return (
     <div
       className={twJoin(
-        'bg-gray-1 rounded-8 p-16 w-full aspect-square',
+        'bg-gray-1 rounded-8 p-16 w-full aspect-square sm:w-1/2',
         'flex justify-center items-center relative',
       )}
     >

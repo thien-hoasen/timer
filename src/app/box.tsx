@@ -26,7 +26,7 @@ export function AppBox(): ReactElement {
 
   return (
     <LayoutBox>
-      <div className="p-12 h-full flex flex-col gap-12">
+      <div className="p-12 h-full flex flex-col sm:flex-row gap-12">
         <PlaceBox
           time={time}
           timezones={timezones}

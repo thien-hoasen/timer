@@ -6,7 +6,7 @@ export const WHEEL_GAP = 16
 export const WHEEL_THICKNESS = 48
 export const GUESS_WHEEL_THICKNESS = 18
 
-const VIEWPORT_WIDTH = window.innerWidth
+const VIEWPORT_WIDTH = window.innerWidth < 768 ? window.innerWidth : window.innerWidth / 2
 const APP_PADDING = 12
 const CARD_PADDING = 16
 

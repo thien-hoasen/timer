@@ -18,7 +18,7 @@ export function PlaceBox(props: {
   return (
     <div
       className={twJoin(
-        'flex flex-col px-16 overflow-auto',
+        'sm:flex-1 flex flex-col px-16 overflow-auto',
         'bg-gray-1 rounded-8 font-medium',
       )}
     >
