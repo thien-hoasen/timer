@@ -3,7 +3,8 @@ import type { ReactElement } from 'react'
 import { useState } from 'react'
 import { LayoutBox } from '../layout/box'
 import { PlaceBox } from '../place/box'
-import { TimeBox } from '../time/box'
+import { LOCAL_TIMEZONE } from '../util/datetime'
+import { WheelBox } from '../wheel/box'
 
 export function AppBox(): ReactElement {
   const [time, setTime] = useState(() => {
@@ -13,7 +14,9 @@ export function AppBox(): ReactElement {
   })
   const [timezones, setTimezones] = useState<TimezoneName[]>(() => {
     const tzs = localStorage.getItem('timezones') as string | null
-    return tzs ? JSON.parse(tzs) : []
+    if (!tzs)
+      return []
+    return JSON.parse(tzs).filter((tz: string) => tz !== LOCAL_TIMEZONE?.name)
   })
 
   const onTimezonesChange = (tzs: TimezoneName[]) => {
@@ -29,7 +32,11 @@ export function AppBox(): ReactElement {
           timezones={timezones}
           setTimezones={onTimezonesChange}
         />
-        <TimeBox time={time} setTime={setTime} />
+        <WheelBox
+          time={time}
+          setTime={setTime}
+          timezones={timezones}
+        />
       </div>
     </LayoutBox>
   )

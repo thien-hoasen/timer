@@ -6,6 +6,7 @@
 }
 
 @import "./color.css";
+@import "./guess-color.css";
 @import "./shadow.css";
 @import "./typography.css";
 @import "./radius.css";

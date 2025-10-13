@@ -14,34 +14,42 @@ export function getDateTimeFormatter(
   })
 }
 
-export function getTimezoneName(timezone: string): string {
+// Local timezone should be always defined
+// In case it is not found, throw error immediately
+
+const localTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+export const LOCAL_TIMEZONE = getTimezone(localTimezone)
+export const LOCAL_TIMEZONE_DATA = LOCAL_TIMEZONE ? getTimezoneWithCountry(LOCAL_TIMEZONE) : null
+
+export const OTHER_TIMEZONES_DATA = Object.entries(getAllTimezones())
+  .filter(([tz]) => tz !== LOCAL_TIMEZONE?.name)
+  .map(([_, timezone]) => getTimezoneWithCountry(timezone))
+
+export function formatTimezoneName(timezone: string): string {
   return timezone.split('/').pop()?.replaceAll('_', ' ') ?? ''
 }
 
-export const LOCAL_TIMEZONE = Intl.DateTimeFormat().resolvedOptions().timeZone as TimezoneName
+export interface TimezoneWithCountry {
+  id: TimezoneName
+  timezoneName: string
+  countryName: string
+  flagEmoji: string
+}
 
-export const LOCAL_TIMEZONE_DATA = getTimezoneAndCountry(getTimezone(LOCAL_TIMEZONE))
-
-export const ALL_TIMEZONES = getAllTimezones()
-
-export const ALL_TIMEZONES_DATA = Object.values(ALL_TIMEZONES)
-  .filter(tz => tz.name !== LOCAL_TIMEZONE)
-  .map(getTimezoneAndCountry)
-
-function getTimezoneAndCountry(timezone: Timezone) {
+export function getTimezoneWithCountry(timezone: Timezone): TimezoneWithCountry {
   if (timezone.countries.length === 0) {
     return {
       id: timezone.name as TimezoneName,
-      timezone: getTimezoneName(timezone.name),
-      country: '',
-      flag: '',
+      timezoneName: formatTimezoneName(timezone.name),
+      countryName: '',
+      flagEmoji: '',
     }
   }
   return {
     id: timezone.name as TimezoneName,
-    timezone: getTimezoneName(timezone.name),
-    country: getCountry(timezone.countries[0]).name,
-    flag: getFlagEmoji(timezone.countries[0]),
+    timezoneName: formatTimezoneName(timezone.name),
+    countryName: getCountry(timezone.countries[0]).name,
+    flagEmoji: getFlagEmoji(timezone.countries[0]),
   }
 }
 

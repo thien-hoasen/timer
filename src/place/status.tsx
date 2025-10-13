@@ -1,13 +1,16 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { AlertTriangle, BellOff, CheckCheck } from 'lucide-react'
-import { getSchedule } from '../time/schedule'
 import { LOCAL_TIMEZONE } from '../util/datetime'
+import { getSchedule } from './schedule'
 
-export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): ReactElement | null {
+export function PlaceStatus(props: {
+  time: Date
+  timezone: TimezoneName
+}): ReactElement | null {
   const { time, timezone } = props
 
-  if (timezone === LOCAL_TIMEZONE)
+  if (!LOCAL_TIMEZONE || timezone === LOCAL_TIMEZONE.name)
     return null
 
   const schedule = getSchedule(time, timezone)
@@ -16,8 +19,8 @@ export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): Reac
     return (
       <AlertTriangle
         size={20}
-        fill="var(--color-accent-4)"
-        color="var(--color-accent-10)"
+        fill="var(--accent-4)"
+        color="var(--accent-10)"
       />
     )
   }
@@ -26,7 +29,7 @@ export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): Reac
     return (
       <CheckCheck
         size={20}
-        color="var(--color-accent-10)"
+        color="var(--accent-10)"
       />
     )
   }
@@ -34,8 +37,8 @@ export function PlaceStatus(props: { time: Date, timezone: TimezoneName }): Reac
   return (
     <BellOff
       size={20}
-      fill="var(--color-accent-10)"
-      color="var(--color-accent-10)"
+      fill="var(--accent-10)"
+      color="var(--accent-10)"
     />
   )
 }
