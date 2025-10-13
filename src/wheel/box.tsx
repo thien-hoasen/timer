@@ -25,12 +25,15 @@ export function WheelBox(props: {
     >
       <WheelMain time={time} setTime={setTime} />
       {timezones.map((timezone, index) => {
+        const color = getGuessColor(index)
+        if (!color)
+          return null
         return (
           <WheelGuess
             key={timezone}
             // the first WHEEL_GAP is the gap between the main wheel and the guess wheel
             diameter={WHEEL_INNER_DIAMETER - WHEEL_GAP - (WHEEL_GAP + GUESS_WHEEL_THICKNESS) * index}
-            color={getGuessColor(index)}
+            color={color}
             timezone={timezone}
           />
         )

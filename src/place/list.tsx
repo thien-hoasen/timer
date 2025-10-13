@@ -61,6 +61,9 @@ export function PlaceList(props: {
         const timezoneData = getTimezone(timezone)
         if (!timezoneData)
           return null
+        const color = getGuessColor(index)
+        if (!color)
+          return null
         const { timezoneName, countryName } = getTimezoneWithCountry(timezoneData)
         return (
           <div
@@ -97,11 +100,7 @@ export function PlaceList(props: {
                 {countryName}
               </div>
             </div>
-            <PlaceTime
-              time={time}
-              timezone={timezone}
-              color={getGuessColor(index)}
-            />
+            <PlaceTime time={time}timezone={timezone} color={color} />
           </div>
         )
       })}

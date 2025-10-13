@@ -20,9 +20,9 @@ export const WHEEL_INNER_DIAMETER = WHEEL_INNER_RADIUS * 2
 
 export type GuessColor = 'plum' | 'crimson' | 'red' | 'orange'
 const GUESS_COLORS: GuessColor[] = ['plum', 'crimson', 'red', 'orange']
-export function getGuessColor(index: number): GuessColor {
+export function getGuessColor(index: number): GuessColor | null {
   if (index > GUESS_COLORS.length - 1)
-    throw new Error('Selected timezones limit exceeded')
+    return null
   return GUESS_COLORS[index]
 }
 
