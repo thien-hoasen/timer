@@ -1,13 +1,15 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { twJoin } from 'tailwind-merge'
 import { WheelGuess } from './guess'
 import { WheelMain } from './main'
 import {
   getGuessColor,
   GUESS_WHEEL_THICKNESS,
+  WHEEL_CONTAINER_PADDING,
   WHEEL_GAP,
-  WHEEL_INNER_DIAMETER,
+  WHEEL_THICKNESS,
 } from './render'
 
 export function WheelBox(props: {
@@ -16,6 +18,22 @@ export function WheelBox(props: {
   timezones: TimezoneName[]
 }): ReactElement {
   const { time, setTime, timezones } = props
+
+  const [space, setSpace] = useState(0)
+
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      const viewportWidth = window.innerWidth < 640 ? window.innerWidth : window.innerWidth / 2
+      // inner and outer radius of the main wheel
+      const outerRadius = Math.round((viewportWidth - WHEEL_CONTAINER_PADDING) / 2)
+      const innerRadius = outerRadius - WHEEL_THICKNESS
+      // the first WHEEL_GAP is the gap between the main wheel and the guess wheel
+      setSpace(innerRadius * 2 - WHEEL_GAP)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <div
       className={twJoin(
@@ -31,8 +49,7 @@ export function WheelBox(props: {
         return (
           <WheelGuess
             key={timezone}
-            // the first WHEEL_GAP is the gap between the main wheel and the guess wheel
-            diameter={WHEEL_INNER_DIAMETER - WHEEL_GAP - (WHEEL_GAP + GUESS_WHEEL_THICKNESS) * index}
+            diameter={space - (WHEEL_GAP + GUESS_WHEEL_THICKNESS) * index}
             color={color}
             timezone={timezone}
           />

@@ -6,17 +6,7 @@ export const WHEEL_GAP = 16
 export const WHEEL_THICKNESS = 48
 export const GUESS_WHEEL_THICKNESS = 18
 
-const VIEWPORT_WIDTH = window.innerWidth < 768 ? window.innerWidth : window.innerWidth / 2
-const APP_PADDING = 12
-const CARD_PADDING = 16
-
-export const WHEEL_OUTER_RADIUS = Math.round(
-  (VIEWPORT_WIDTH - APP_PADDING * 2 - CARD_PADDING * 2) / 2,
-)
-export const WHEEL_OUTER_DIAMETER = WHEEL_OUTER_RADIUS * 2
-
-export const WHEEL_INNER_RADIUS = WHEEL_OUTER_RADIUS - WHEEL_THICKNESS
-export const WHEEL_INNER_DIAMETER = WHEEL_INNER_RADIUS * 2
+export const WHEEL_CONTAINER_PADDING = 56
 
 export type GuessColor = 'plum' | 'crimson' | 'red' | 'orange'
 const GUESS_COLORS: GuessColor[] = ['plum', 'crimson', 'red', 'orange']
