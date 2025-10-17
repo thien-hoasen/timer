@@ -4,13 +4,10 @@ import { useLayoutEffect, useState } from 'react'
 import { twJoin } from 'tailwind-merge'
 import { WheelGuess } from './guess'
 import { WheelMain } from './main'
-import {
-  getGuessColor,
-  GUESS_WHEEL_THICKNESS,
-  WHEEL_CONTAINER_PADDING,
-  WHEEL_GAP,
-  WHEEL_THICKNESS,
-} from './render'
+import { getGuessColor, GUESS_WHEEL_THICKNESS, WHEEL_THICKNESS } from './render'
+
+const WHEEL_GAP = 16
+const WHEEL_CONTAINER_PADDING = 56
 
 export function WheelBox(props: {
   time: Date
@@ -19,16 +16,14 @@ export function WheelBox(props: {
 }): ReactElement {
   const { time, setTime, timezones } = props
 
-  const [space, setSpace] = useState(0)
+  const [wheelRadius, setWheelRadius] = useState({ outer: 0, inner: 0 })
 
   useLayoutEffect(() => {
     const handleResize = () => {
       const viewportWidth = window.innerWidth < 640 ? window.innerWidth : window.innerWidth / 2
-      // inner and outer radius of the main wheel
       const outerRadius = Math.round((viewportWidth - WHEEL_CONTAINER_PADDING) / 2)
       const innerRadius = outerRadius - WHEEL_THICKNESS
-      // the first WHEEL_GAP is the gap between the main wheel and the guess wheel
-      setSpace(innerRadius * 2 - WHEEL_GAP)
+      setWheelRadius({ outer: outerRadius, inner: innerRadius })
     }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
@@ -41,7 +36,7 @@ export function WheelBox(props: {
         'flex justify-center items-center relative',
       )}
     >
-      <WheelMain time={time} setTime={setTime} />
+      <WheelMain time={time} setTime={setTime} wheelRadius={wheelRadius} />
       {timezones.map((timezone, index) => {
         const color = getGuessColor(index)
         if (!color)
@@ -49,7 +44,8 @@ export function WheelBox(props: {
         return (
           <WheelGuess
             key={timezone}
-            diameter={space - (WHEEL_GAP + GUESS_WHEEL_THICKNESS) * index}
+            // the first WHEEL_GAP is the gap between the main wheel and the guess wheel
+            diameter={wheelRadius.inner * 2 - WHEEL_GAP - (WHEEL_GAP + GUESS_WHEEL_THICKNESS) * index}
             color={color}
             timezone={timezone}
           />

@@ -2,11 +2,8 @@ import type { Color } from 'react-aria-components'
 import { parseColor } from 'react-aria-components'
 import { SCHEDULE } from '../place/schedule'
 
-export const WHEEL_GAP = 16
 export const WHEEL_THICKNESS = 48
 export const GUESS_WHEEL_THICKNESS = 18
-
-export const WHEEL_CONTAINER_PADDING = 56
 
 export type GuessColor = 'plum' | 'crimson' | 'red' | 'orange'
 const GUESS_COLORS: GuessColor[] = ['plum', 'crimson', 'red', 'orange']
