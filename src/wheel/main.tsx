@@ -2,6 +2,8 @@ import { ColorThumb, ColorWheel, ColorWheelTrack } from 'react-aria-components'
 import { triggerHaptic } from '../util/haptic'
 import { colorToDate, dateToColor, getWheelColors, WHEEL_THICKNESS } from './render'
 
+const THUMB_SIZE = WHEEL_THICKNESS - 6
+
 export function WheelMain(props: {
   time: Date
   setTime: (time: Date) => void
@@ -25,8 +27,8 @@ export function WheelMain(props: {
         className="border-2 border-white-a12 rounded-half box-border shadow-2"
         style={{
           backgroundColor: 'var(--white-a12)',
-          width: `${WHEEL_THICKNESS - 6}px`,
-          height: `${WHEEL_THICKNESS - 6}px`,
+          width: `${THUMB_SIZE}px`,
+          height: `${THUMB_SIZE}px`,
         }}
         onClick={() => triggerHaptic()}
         onTouchEnd={() => triggerHaptic()}
