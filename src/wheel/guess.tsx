@@ -21,7 +21,7 @@ export function WheelGuess(props: {
     return null
 
   const wheelColors = getWheelColors(color).join(',')
-  const offSetHours = (timezoneData.utcOffset - LOCAL_TIMEZONE.utcOffset) / 60
+  const offSetHours = (LOCAL_TIMEZONE.utcOffset - timezoneData.utcOffset) / 60
 
   return (
     <div
