@@ -1,6 +1,6 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
-import { useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
 import { twJoin } from 'tailwind-merge'
 import { WheelGuess } from './guess'
 import { WheelMain } from './main'
@@ -9,6 +9,10 @@ import { getGuessColor, GUESS_WHEEL_THICKNESS, WHEEL_THICKNESS } from './render'
 const WHEEL_GAP = 16
 const WHEEL_CONTAINER_PADDING = 56
 
+const viewportWidth = window.innerWidth < 640 ? window.innerWidth : window.innerWidth / 2
+const outerRadius = Math.round((viewportWidth - WHEEL_CONTAINER_PADDING) / 2)
+const innerRadius = outerRadius - WHEEL_THICKNESS
+
 export function WheelBox(props: {
   time: Date
   setTime: (time: Date) => void
@@ -16,18 +20,18 @@ export function WheelBox(props: {
 }): ReactElement {
   const { time, setTime, timezones } = props
 
-  const [wheelRadius, setWheelRadius] = useState({ outer: 0, inner: 0 })
+  const [wheelRadius] = useState({ outer: outerRadius, inner: innerRadius })
 
-  useLayoutEffect(() => {
-    const handleResize = () => {
-      const viewportWidth = window.innerWidth < 640 ? window.innerWidth : window.innerWidth / 2
-      const outerRadius = Math.round((viewportWidth - WHEEL_CONTAINER_PADDING) / 2)
-      const innerRadius = outerRadius - WHEEL_THICKNESS
-      setWheelRadius({ outer: outerRadius, inner: innerRadius })
-    }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  // useLayoutEffect(() => {
+  //   const handleResize = () => {
+  //     const viewportWidth = window.innerWidth < 640 ? window.innerWidth : window.innerWidth / 2
+  //     const outerRadius = Math.round((viewportWidth - WHEEL_CONTAINER_PADDING) / 2)
+  //     const innerRadius = outerRadius - WHEEL_THICKNESS
+  //     setWheelRadius({ outer: outerRadius, inner: innerRadius })
+  //   }
+  //   window.addEventListener('resize', handleResize)
+  //   return () => window.removeEventListener('resize', handleResize)
+  // }, [])
 
   return (
     <div
