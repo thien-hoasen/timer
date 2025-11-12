@@ -1,7 +1,7 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import { getTimezone } from 'countries-and-timezones'
-import { Home, Trash } from 'lucide-react'
+import { Trash } from 'lucide-react'
 import { twJoin } from 'tailwind-merge'
 import {
   getTimezoneWithCountry,
@@ -36,13 +36,10 @@ export function PlaceList(props: {
           'border-b border-gray-3',
         )}
       >
-        <div className="p-8">
-          <Home
-            size={20}
-            fill="var(--accent-10)"
-            color="var(--accent-10)"
-          />
-        </div>
+        <PlaceStatus
+          time={time}
+          timezone={LOCAL_TIMEZONE.name as TimezoneName}
+        />
         <div className="flex-1 flex flex-col">
           <div className="font-medium">
             {LOCAL_TIMEZONE_DATA.timezoneName}
@@ -85,12 +82,10 @@ export function PlaceList(props: {
                   </button>
                 )
               : (
-                  <div className="p-8">
-                    <PlaceStatus
-                      time={time}
-                      timezone={timezone}
-                    />
-                  </div>
+                  <PlaceStatus
+                    time={time}
+                    timezone={timezone}
+                  />
                 )}
             <div className="flex-1 flex flex-col">
               <div className="font-medium">

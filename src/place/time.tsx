@@ -1,8 +1,9 @@
 import type { TimezoneName } from 'countries-and-timezones'
 import type { ReactElement } from 'react'
 import type { GuessColor } from '../wheel/render'
+import type { Schedule } from './schedule'
 import { getDateTimeFormatter } from '../util/datetime'
-import { getSchedule } from './schedule'
+import { SCHEDULE } from './schedule'
 
 export function PlaceTime(props: {
   time: Date
@@ -43,4 +44,27 @@ export function PlaceTime(props: {
       {timezoneFormatter.format(time)}
     </div>
   )
+}
+
+function getSchedule(time: Date, timezone: TimezoneName): Schedule | null {
+  const timezoneFormatter24 = getDateTimeFormatter(timezone, { hour12: false })
+  const timeParts = timezoneFormatter24.formatToParts(time)
+  const timezoneHour = timeParts.find(part => part.type === 'hour')?.value ?? null
+
+  if (!timezoneHour)
+    return null
+
+  const hour = Number(timezoneHour)
+
+  if (false
+    || (hour >= SCHEDULE.outOfOffice.morning.start && hour < SCHEDULE.outOfOffice.morning.end)
+    || (hour >= SCHEDULE.outOfOffice.night.start && hour < SCHEDULE.outOfOffice.night.end)
+  ) {
+    return 'outOfOffice'
+  }
+
+  if (hour >= SCHEDULE.inOffice.start && hour < SCHEDULE.inOffice.end)
+    return 'inOffice'
+
+  return 'sleep'
 }
