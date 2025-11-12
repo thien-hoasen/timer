@@ -13,6 +13,7 @@ export function PlaceBox(props: {
 }): ReactElement {
   const { time, timezones, setTimezones } = props
 
+  const [isSearchTimezone, setIsSearchTimezone] = useState<boolean>(false)
   const [isDeleting, setIsDeleting] = useState<boolean>(false)
 
   return (
@@ -30,7 +31,15 @@ export function PlaceBox(props: {
         >
           {isDeleting ? <X size={20} /> : <Pencil size={20} />}
         </button>
-        <PlaceSearch timezones={timezones} setTimezones={setTimezones} />
+        <PlaceSearch
+          timezones={timezones}
+          setTimezones={setTimezones}
+          isSearchTimezone={isSearchTimezone}
+          setIsSearchTimezone={(value) => {
+            setIsSearchTimezone(value)
+            setIsDeleting(false)
+          }}
+        />
       </div>
       <PlaceList
         time={time}
