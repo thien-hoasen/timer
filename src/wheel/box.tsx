@@ -9,8 +9,16 @@ import { getGuessColor, GUESS_WHEEL_THICKNESS, WHEEL_THICKNESS } from './render'
 const WHEEL_GAP = 16
 const WHEEL_CONTAINER_PADDING = 56
 
+function getViewportWidth(): number {
+  if (window.innerWidth < 640) // mobile viewport width
+    return window.innerWidth
+  if (window.innerWidth < 1024) // tablet viewport width
+    return window.innerWidth / 2
+  return 1024 / 2 // desktop viewport width
+}
+
 function getWheelRadius() {
-  const viewportWidth = window.innerWidth < 640 ? window.innerWidth : window.innerWidth / 2
+  const viewportWidth = getViewportWidth()
   const outerRadius = Math.round((viewportWidth - WHEEL_CONTAINER_PADDING) / 2)
   const innerRadius = outerRadius - WHEEL_THICKNESS
   return { outer: outerRadius, inner: innerRadius }
