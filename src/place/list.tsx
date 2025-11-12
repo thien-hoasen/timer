@@ -36,10 +36,9 @@ export function PlaceList(props: {
           'border-b border-gray-3',
         )}
       >
-        <PlaceStatus
-          time={time}
-          timezone={LOCAL_TIMEZONE.name as TimezoneName}
-        />
+        <div className="text-3xl sm:text-4xl lg:text-5xl">
+          {LOCAL_TIMEZONE_DATA.flagEmoji}
+        </div>
         <div className="flex-1 flex flex-col">
           <div className="font-medium">
             {LOCAL_TIMEZONE_DATA.timezoneName}
@@ -53,6 +52,10 @@ export function PlaceList(props: {
           timezone={LOCAL_TIMEZONE.name as TimezoneName}
           color="accent"
         />
+        <PlaceStatus
+          time={time}
+          timezone={LOCAL_TIMEZONE.name as TimezoneName}
+        />
       </div>
       {timezones.map((timezone, index) => {
         const timezoneData = getTimezone(timezone)
@@ -61,7 +64,7 @@ export function PlaceList(props: {
         const color = getGuessColor(index)
         if (!color)
           return null
-        const { timezoneName, countryName } = getTimezoneWithCountry(timezoneData)
+        const { timezoneName, countryName, flagEmoji } = getTimezoneWithCountry(timezoneData)
         return (
           <div
             key={timezone}
@@ -82,10 +85,9 @@ export function PlaceList(props: {
                   </button>
                 )
               : (
-                  <PlaceStatus
-                    time={time}
-                    timezone={timezone}
-                  />
+                  <div className="text-3xl sm:text-4xl lg:text-5xl">
+                    {flagEmoji}
+                  </div>
                 )}
             <div className="flex-1 flex flex-col">
               <div className="font-medium">
@@ -96,6 +98,7 @@ export function PlaceList(props: {
               </div>
             </div>
             <PlaceTime time={time}timezone={timezone} color={color} />
+            <PlaceStatus time={time} timezone={timezone} />
           </div>
         )
       })}
